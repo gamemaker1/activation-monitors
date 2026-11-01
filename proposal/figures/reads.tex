@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+\foreach \i/\t in {0/How,1/safe,2/is,3/my,4/plan} {
+  \node[tok, minimum width=7.6mm, fill=white] (k\i) at (\i*8mm,0) {\t};
+}
+\foreach \i/\t in {5/It,6/is,7/fine} {
+  \node[tok, minimum width=7.6mm, fill=pdata] (k\i) at (\i*8mm,0) {\t};
+}
+\foreach \i/\t in {8/as,9/you,10/said} {
+  \node[tok, minimum width=7.6mm, fill=ptext, draw=drose, line width=0.8pt] (k\i) at (\i*8mm,0) {\t};
+}
+\node[lbl, below=1mm of k2] {prompt, written by the user};
+\node[lbl, below=1mm of k6] {reply};
+\node[lbl, below=1mm of k9, text=drose] {the unit};
+\node[draw=black!40, fill=pmodel, rounded corners=2pt, minimum width=92mm, minimum height=9mm, anchor=south west, font=\footnotesize, align=left, text width=86mm] (band) at (-4mm,10mm) {residual stream after one chosen layer,\\one vector per token};
+\foreach \i in {0,...,10} {
+  \draw[arr, draw=black!40] (\i*8mm,3.2mm) -- (\i*8mm,9.5mm);
+}
+\draw[dashed, draw=drose, line width=0.6pt] (60mm,-4mm) -- (60mm,24mm);
+\node[lbl, text=drose, anchor=west] at (61mm,23mm) {onset};
+\node[sbox, minimum width=34mm] (mon) at (48mm,34mm) {forecasting monitor};
+\draw[arr] (48mm,19mm) -- (mon.south);
+\node[lbl, anchor=east] at (46.5mm,23mm) {reads position $t$};
+\node[lbl, above=1mm of mon] {one score per concept, for whether it surfaces after $t$};
+\end{tikzpicture}

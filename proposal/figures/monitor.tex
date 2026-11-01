@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+\foreach \i/\t in {0/How,1/safe,2/is,3/my,4/plan} {
+  \node[tok, minimum width=7.6mm, fill=white] (k\i) at (\i*8mm,0) {\t};
+}
+\foreach \i/\t in {5/It,6/is} {
+  \node[tok, minimum width=7.6mm, fill=pdata] (k\i) at (\i*8mm,0) {\t};
+}
+\node[lbl, below=1mm of k3] {tokens up to position $t$};
+\node[draw=black!40, fill=pmodel, rounded corners=2pt, minimum width=60mm, minimum height=6mm, anchor=south west, font=\footnotesize] (band) at (-4mm,9mm) {activations at one chosen layer};
+\foreach \i in {0,...,6} {
+  \draw[arr, draw=black!40] (\i*8mm,3.2mm) -- (\i*8mm,8.6mm);
+}
+\foreach \i/\h in {0/1,1/3,2/1,3/2,4/5,5/2,6/4} {
+  \fill[dlav] (\i*8mm-1.2mm,16mm) rectangle (\i*8mm+1.2mm,16mm+\h*0.8mm);
+}
+\node[lbl, anchor=west] at (50mm,18mm) {attention weights};
+\node[sbox, minimum width=34mm] (pool) at (24mm,27mm) {attention pooling};
+\draw[arr] (24mm,21mm) -- (pool.south);
+\node[sbox, circle, minimum size=8mm, inner sep=0pt] (dot) at (62mm,27mm) {$\langle\cdot,\cdot\rangle$};
+\draw[arr] (pool.east) -- (dot.west) node[lbl, midway, above] {$f(x)$};
+\node[sbox, minimum width=28mm, minimum height=12mm] (enc) at (90mm,27mm) {definition\\encoder};
+\draw[arr] (enc.west) -- (dot.east) node[lbl, midway, above] {$g(d_k)$};
+\node[tbox, minimum width=26mm] (d1) at (122mm,34mm) {sycophancy};
+\node[tbox, minimum width=26mm] (d2) at (122mm,27mm) {deception};
+\node[tbox, minimum width=26mm] (d3) at (122mm,20mm) {concept $K$};
+\node[lbl, above=1mm of d1] {written definitions};
+\foreach \d in {d1,d2,d3} {
+  \draw[arr] (\d.west) -- (enc.east |- \d.west);
+}
+\node[box, fill=white, draw=dlav, line width=0.8pt, minimum width=30mm] (sc) at (62mm,40mm) {sigmoid of each inner product:\\one score per concept};
+\draw[arr] (dot.north) -- (sc.south);
+\end{tikzpicture}

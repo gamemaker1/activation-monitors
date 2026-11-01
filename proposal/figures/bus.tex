@@ -1,0 +1,30 @@
+\begin{tikzpicture}[node distance=3mm and 8mm]
+\node[mbox, minimum width=20mm] (m1) {model A};
+\node[mbox, minimum width=20mm, below=of m1] (m2) {model B};
+\node[mbox, minimum width=20mm, below=of m2] (m3) {model C};
+\node[mbox, minimum width=20mm, below=6mm of m3, dashed] (m4) {model D};
+\node[abox, minimum width=20mm, right=of m1] (p1) {adapter A};
+\node[abox, minimum width=20mm, right=of m2] (p2) {adapter B};
+\node[abox, minimum width=20mm, right=of m3] (p3) {adapter C};
+\node[abox, minimum width=20mm, right=of m4, dashed] (p4) {adapter D};
+\node[sbox, minimum width=20mm, minimum height=16mm, right=12mm of p2.east |- p2.south, anchor=west] (z) {shared\\space};
+\node[sbox, minimum width=20mm, minimum height=16mm, right=of z] (mon) {monitor};
+\node[box, fill=white, draw=dlav, line width=0.8pt, minimum width=18mm, right=of mon] (sc) {one score\\per concept};
+\node[sbox, minimum width=24mm, above=8mm of mon] (te) {definition encoder};
+\node[tbox, minimum width=24mm, left=of te] (desc) {written\\definitions};
+\foreach \a/\b in {m1/p1, m2/p2, m3/p3} \draw[arr] (\a) -- (\b);
+\draw[arr, dashed] (m4) -- (p4);
+\draw[arr] (p1.east) -- ++(4mm,0) |- ([yshift=5mm]z.west);
+\draw[arr] (p2.east) -- ++(4mm,0) |- ([yshift=1.5mm]z.west);
+\draw[arr] (p3.east) -- ++(4mm,0) |- ([yshift=-2mm]z.west);
+\draw[arr, dashed] (p4.east) -- ++(7mm,0) |- ([yshift=-5.5mm]z.west);
+\draw[arr] (z) -- (mon);
+\draw[arr] (mon) -- (sc);
+\draw[arr] (desc) -- (te);
+\draw[arr] (te) -- (mon);
+\begin{scope}[on background layer]
+  \node[draw=black!25, rounded corners=4pt, inner sep=4pt, fit=(m1)(m3)(p1)(p3), label={[lbl, anchor=south west, text width=48mm, align=left]north west:source models, adapters\\fitted on unlabelled chat text}] {};
+  \node[draw=black!25, dashed, rounded corners=4pt, inner sep=4pt, fit=(m4)(p4), label={[lbl]below:held-out model, attached afterwards}] {};
+  \node[draw=black!25, rounded corners=4pt, inner sep=4pt, fit=(z)(mon)(te)(desc)(sc), label={[lbl]above:trained once on the source models, then frozen}] {};
+\end{scope}
+\end{tikzpicture}

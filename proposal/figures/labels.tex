@@ -1,0 +1,29 @@
+\begin{tikzpicture}[x=1mm, y=1mm]
+\draw[fill=white, draw=black!40] (0,0) rectangle (30,6);
+\draw[fill=pdata, draw=black!40] (30,0) rectangle (110,6);
+\draw[fill=ptext, draw=drose, line width=0.8pt] (58,0) rectangle (74,6);
+\draw[fill=ptext, draw=drose, line width=0.8pt] (90,0) rectangle (104,6);
+\node[lbl] at (15,3) {prompt};
+\node[lbl] at (49,3) {reply};
+\node[lbl, text=drose] at (66,3) {unit of $c_1$};
+\node[lbl, text=drose] at (97,3) {unit of $c_2$};
+\node[lbl, anchor=east] at (-2,3) {transcript};
+\foreach \r/\n/\a/\b in {1/$c_1$ sycophancy/58/74, 2/$c_2$ deception/90/104} {
+  \draw[fill=pdata, draw=black!40] (0,-9*\r-3) rectangle (\a,-9*\r+3);
+  \draw[fill=ptext, draw=drose, line width=0.8pt] (\a,-9*\r-3) rectangle (\b,-9*\r+3);
+  \draw[fill=white, draw=black!40] (\b,-9*\r-3) rectangle (110,-9*\r+3);
+  \node[lbl, anchor=east] at (-2,-9*\r) {\n};
+}
+\draw[fill=white, draw=black!40] (0,-30) rectangle (110,-24);
+\node[lbl, anchor=east] at (-2,-27) {$c_3$ flattery};
+\node[lbl] at (44,-9) {1};
+\node[lbl] at (66,-9) {1};
+\node[lbl] at (92,-9) {0};
+\node[lbl] at (52,-18) {1};
+\node[lbl] at (97,-18) {1};
+\node[lbl] at (107,-18) {0};
+\node[lbl] at (55,-27) {0};
+\draw[dashed, draw=black!70, line width=0.6pt] (40,-33) -- (40,9);
+\node[lbl, anchor=south] at (40,9) {position $t$, label $(1,1,0)$};
+\node[lbl, anchor=north west, text width=112mm, align=left] at (0,-35) {blue: the concept surfaces later, so the label is 1 and the task is forecasting; rose: inside the unit, label 1 and the task is detection; white: label 0};
+\end{tikzpicture}

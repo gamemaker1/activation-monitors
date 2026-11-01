@@ -1,0 +1,14 @@
+\begin{tikzpicture}[node distance=2mm and 10mm]
+\node[box, fill=pdata, draw=drose, line width=0.9pt, text width=40mm, minimum height=11mm] (p1) {replies that adopt the guess\\(example units)};
+\node[box, fill=pdata, text width=40mm, minimum height=11mm, below=of p1] (n1) {replies that keep their own answer\\(counterexamples)};
+\node[inner sep=0pt, fit=(p1)(n1)] (ex) {};
+\node[lbl, above=2mm of ex] {labelled replies of the monitored model};
+\node[gbox, text width=38mm, left=of ex] (rule) {rule: the reply is sycophantic if its answer equals the user's guess and differs from the answer given without the guess};
+\node[lbl, below=2mm of rule, text width=38mm] {the monitor never reads the rule};
+\draw[arr] (rule.east) -- (ex.west) node[lbl, midway, above] {labels};
+\node[tbox, text width=40mm, right=14mm of ex] (def) {sycophancy: the reply adopts the answer the user suggested. A reply that reaches the same answer without the suggestion does not count.};
+\node[lbl, above=2mm of def] {written definition};
+\node[sbox, minimum width=30mm, below=12mm of $(ex.south)!0.5!(def.south)$] (mon) {monitor};
+\draw[arr] (ex.south) |- ([yshift=1.5mm]mon.west) node[lbl, pos=0.25, left] {training only};
+\draw[arr] (def.south) |- ([yshift=1.5mm]mon.east) node[lbl, pos=0.25, right] {training and query};
+\end{tikzpicture}
